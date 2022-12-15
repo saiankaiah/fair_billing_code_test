@@ -13,6 +13,7 @@ def calc_sessions_active_time(file_path):
         time_stamp, name, begin_end = eachLine.split(" ")
         # convert the entire timestamp into seconds for computation
         time_in_secs = calculate_time(time_stamp)
+        # remove the newline characters
         begin_end = begin_end.strip()
         # save the first time entry of the logfile
         if TimeAtStartOfBill is None:
@@ -37,7 +38,7 @@ def calc_sessions_active_time(file_path):
                         time_in_secs - fair_bill_dict[name]["start_times"][0]
                     )
                     # once time differencing is calculated,removing the corresponding start time
-                    time_in_secs - fair_bill_dict[name]["start_times"].pop(0)
+                    fair_bill_dict[name]["start_times"].pop(0)
         else:
             # if name is the new entry of the fair_bill_dict,assign the values based on start/end
             if begin_end == "Start":
